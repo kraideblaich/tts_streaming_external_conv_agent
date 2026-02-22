@@ -1,0 +1,31 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "External Conversation Agent",
+        "description": "Configure your external conversation agent endpoint.",
+        "data": {
+          "name": "Name",
+          "url": "Endpoint URL",
+          "token": "Bearer Token (optional)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect to endpoint",
+      "unknown": "Unexpected error"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "External Conversation Agent",
+        "data": {
+          "name": "Name",
+          "url": "Endpoint URL",
+          "token": "Bearer Token (optional)"
+        }
+      }
+    }
+  }
+}

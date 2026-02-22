@@ -1,0 +1,11 @@
+{
+  "domain": "external_conversation",
+  "name": "External Conversation Agent",
+  "codeowners": [],
+  "config_flow": true,
+  "dependencies": ["conversation"],
+  "documentation": "",
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "version": "0.1.0"
+}
