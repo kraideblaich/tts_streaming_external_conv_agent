@@ -1,6 +1,8 @@
 """Constants for the External Conversation Agent integration."""
 
-DOMAIN = "external_conversation"
+DOMAIN = "streaming_external_conversation"
+
+PLATFORMS = ["conversation"]
 
 CONF_NAME = "name"
 CONF_URL = "url"

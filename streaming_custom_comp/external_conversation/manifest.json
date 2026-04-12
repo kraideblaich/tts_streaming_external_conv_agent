@@ -1,6 +1,6 @@
 {
-  "domain": "external_conversation",
-  "name": "External Conversation Agent",
+  "domain": "streaming_external_conversation",
+  "name": "External Conversation Stream",
   "codeowners": [],
   "config_flow": true,
   "dependencies": ["conversation"],

@@ -2,8 +2,8 @@
   "config": {
     "step": {
       "user": {
-        "title": "External Conversation Agent",
-        "description": "Configure your external conversation agent endpoint.",
+        "title": "External Conversation Stream",
+        "description": "Configure your external streaming conversation agent endpoint.",
         "data": {
           "name": "Name",
           "url": "Endpoint URL",
