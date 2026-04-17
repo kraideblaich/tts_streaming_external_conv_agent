@@ -137,8 +137,3 @@ async def conversation(request: dict):
 
 - Home Assistant 2024.1.0 or later
 - External streaming endpoint that supports NDJSON format
-
-
-## License
-
-This integration is provided as-is. Check the repository for license details.
