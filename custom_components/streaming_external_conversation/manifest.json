@@ -1,10 +1,12 @@
 {
   "domain": "streaming_external_conversation",
   "name": "External Conversation Stream",
-  "codeowners": [],
+  "description": "Ermöglicht Streaming-Konversationen mit externen KI-Agenten für Echtzeit-Interaktionen in Home Assistant.",
+  "icon": "mdi:chat-processing",
+  "codeowners": ["https://github.com/kraideblaich"],
   "config_flow": true,
   "dependencies": ["conversation"],
-  "documentation": "",
+  "documentation": "https://github.com/kraideblaich/tts_streaming_external_conv_agent/blob/main/Readme.md",
   "integration_type": "service",
   "iot_class": "cloud_polling",
   "version": "0.1.0"
