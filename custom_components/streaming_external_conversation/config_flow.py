@@ -16,7 +16,7 @@ _LOGGER = logging.getLogger(__name__)
 STEP_USER_DATA_SCHEMA = vol.Schema(
     {
         vol.Required(CONF_NAME): str,
-        vol.Required(CONF_URL): vol.Url(),
+        vol.Required(CONF_URL): vol.All(str, vol.Length(min=1)),
         vol.Optional(CONF_TOKEN): str,
         vol.Optional(CONF_TIMEOUT, default=180): vol.All(vol.Coerce(int), vol.Range(min=10, max=600)),
     }
@@ -76,7 +76,7 @@ class OptionsFlow(config_entries.OptionsFlow):
             data_schema=vol.Schema(
                 {
                     vol.Required(CONF_NAME, default=current.get(CONF_NAME, "")): str,
-                    vol.Required(CONF_URL, default=current.get(CONF_URL, "")): vol.Url(),
+                    vol.Required(CONF_URL, default=current.get(CONF_URL, "")): vol.All(str, vol.Length(min=1)),
                     vol.Optional(CONF_TOKEN, default=current.get(CONF_TOKEN, "")): str,
                     vol.Optional(CONF_TIMEOUT, default=current.get(CONF_TIMEOUT, 180)): vol.All(vol.Coerce(int), vol.Range(min=10, max=600)),
                 }
