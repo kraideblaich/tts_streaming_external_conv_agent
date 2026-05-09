@@ -9,15 +9,16 @@ import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.data_entry_flow import FlowResult
 
-from .const import CONF_NAME, CONF_TOKEN, CONF_URL, DOMAIN
+from .const import CONF_NAME, CONF_TIMEOUT, CONF_TOKEN, CONF_URL, DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
 STEP_USER_DATA_SCHEMA = vol.Schema(
     {
         vol.Required(CONF_NAME): str,
-        vol.Required(CONF_URL): str,
+        vol.Required(CONF_URL): vol.Url(),
         vol.Optional(CONF_TOKEN): str,
+        vol.Optional(CONF_TIMEOUT, default=180): vol.All(vol.Coerce(int), vol.Range(min=10, max=600)),
     }
 )
 
@@ -75,8 +76,9 @@ class OptionsFlow(config_entries.OptionsFlow):
             data_schema=vol.Schema(
                 {
                     vol.Required(CONF_NAME, default=current.get(CONF_NAME, "")): str,
-                    vol.Required(CONF_URL, default=current.get(CONF_URL, "")): str,
+                    vol.Required(CONF_URL, default=current.get(CONF_URL, "")): vol.Url(),
                     vol.Optional(CONF_TOKEN, default=current.get(CONF_TOKEN, "")): str,
+                    vol.Optional(CONF_TIMEOUT, default=current.get(CONF_TIMEOUT, 180)): vol.All(vol.Coerce(int), vol.Range(min=10, max=600)),
                 }
             ),
         )

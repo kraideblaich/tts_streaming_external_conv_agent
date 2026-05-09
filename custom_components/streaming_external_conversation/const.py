@@ -7,3 +7,4 @@ PLATFORMS = ["conversation"]
 CONF_NAME = "name"
 CONF_URL = "url"
 CONF_TOKEN = "token"
+CONF_TIMEOUT = "timeout"

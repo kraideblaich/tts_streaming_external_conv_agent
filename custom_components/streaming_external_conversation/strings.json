@@ -7,7 +7,8 @@
         "data": {
           "name": "Name",
           "url": "Endpoint URL",
-          "token": "Bearer Token (optional)"
+          "token": "Bearer Token (optional)",
+          "timeout": "Timeout in Sekunden (10-600)"
         }
       }
     },
@@ -23,7 +24,8 @@
         "data": {
           "name": "Name",
           "url": "Endpoint URL",
-          "token": "Bearer Token (optional)"
+          "token": "Bearer Token (optional)",
+          "timeout": "Timeout in Sekunden (10-600)"
         }
       }
     }

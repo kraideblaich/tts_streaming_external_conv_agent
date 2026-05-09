@@ -13,7 +13,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
-from .const import CONF_TOKEN, CONF_URL
+from .const import CONF_TIMEOUT, CONF_TOKEN, CONF_URL
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -60,6 +60,10 @@ class ExternalConversationStreamEntity(
     def _token(self) -> str | None:
         return self.entry.data.get(CONF_TOKEN)
 
+    @property
+    def _timeout(self) -> int:
+        return self.entry.data.get(CONF_TIMEOUT, 180)
+
     async def _async_handle_message(
         self,
         user_input: conversation.ConversationInput,
@@ -89,7 +93,7 @@ class ExternalConversationStreamEntity(
                 self._url,
                 json=payload,
                 headers=headers,
-                timeout=aiohttp.ClientTimeout(total=180),
+                timeout=aiohttp.ClientTimeout(total=self._timeout),
             ) as resp:
                 resp.raise_for_status()
 
@@ -98,8 +102,19 @@ class ExternalConversationStreamEntity(
                     if not line:
                         continue
 
-                    event = json.loads(line)
+                    # Maximale Zeilen-Länge (10KB) zur Vermeidung von Memory-Problemen
+                    if len(line) > 10240:
+                        _LOGGER.warning("Skipping overly long line in streaming response")
+                        continue
+
+                    try:
+                        event = json.loads(line)
+                    except json.JSONDecodeError as e:
+                        _LOGGER.error("Failed to parse JSON in streaming response: %s", e)
+                        continue
+
                     event_type = event.get("type")
+                    _LOGGER.debug("Received event: %s", event_type)
 
                     if event_type == "assistant_start":
                         yield {"role": "assistant"}
@@ -127,6 +142,9 @@ class ExternalConversationStreamEntity(
                             event.get("continue_conversation", False)
                         )
                         break
+
+                    else:
+                        _LOGGER.warning("Unknown event type received: %s", event_type)
 
         async for _ in chat_log.async_add_delta_content_stream(
             self.entity_id, delta_stream()
