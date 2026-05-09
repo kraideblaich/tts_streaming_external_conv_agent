@@ -2,7 +2,7 @@
   "domain": "streaming_external_conversation",
   "name": "External Conversation Stream",
   "description": "Ermöglicht Streaming-Konversationen mit externen KI-Agenten für Echtzeit-Interaktionen in Home Assistant.",
-  "icon": "mdi:chat-processing",
+  "icon": "mdi:chat",
   "codeowners": ["kraideblaich"],
   "config_flow": true,
   "dependencies": ["conversation"],
