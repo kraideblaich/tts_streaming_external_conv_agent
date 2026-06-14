@@ -67,7 +67,7 @@ class ExternalConversationStreamEntity(
 
     @property
     def _ca_cert_path(self) -> str | None:
-        return self.entry.data.get(CA_CERT_PATH)
+        return self.entry.data.get(CA_CERT_PATH, None)
 
     async def _async_handle_message(
         self,
