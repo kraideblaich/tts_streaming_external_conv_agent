@@ -8,7 +8,8 @@
           "name": "Name",
           "url": "Endpoint URL",
           "token": "Bearer Token (optional)",
-          "timeout": "Timeout in Sekunden (10-600)"
+          "timeout": "Timeout in Sekunden (10-600)",
+          "ca-path" : "Pfad zum eigenen CA-Zertifikat"
         }
       }
     },
@@ -25,7 +26,8 @@
           "name": "Name",
           "url": "Endpoint URL",
           "token": "Bearer Token (optional)",
-          "timeout": "Timeout in Sekunden (10-600)"
+          "timeout": "Timeout in Sekunden (10-600)",
+          "ca-path" : "Pfad zum eigenen CA-Zertifikat"
         }
       }
     }
