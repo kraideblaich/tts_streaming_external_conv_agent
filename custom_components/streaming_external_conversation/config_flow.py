@@ -80,6 +80,7 @@ class OptionsFlow(config_entries.OptionsFlow):
                     vol.Required(CONF_URL, default=current.get(CONF_URL, "")): vol.All(str, vol.Length(min=1)),
                     vol.Optional(CONF_TOKEN, default=current.get(CONF_TOKEN, "")): str,
                     vol.Optional(CONF_TIMEOUT, default=current.get(CONF_TIMEOUT, 180)): vol.All(vol.Coerce(int), vol.Range(min=10, max=600)),
+                    vol.Optional(CA_CERT_PATH, default=current.get(CA_CERT_PATH, "")) : str,
                 }
             ),
         )
