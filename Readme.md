@@ -26,6 +26,14 @@ A [Home Assistant](https://www.home-assistant.io/) custom integration that enabl
 3. Restart Home Assistant
 4. Set up through the UI as described above
 
+
+### Changes
+
+The integration now supports HTTPS endpoints for the external middleware. This allows the communication between Home Assistant and the connected streaming conversation service to be encrypted using TLS. In addition, an optional path to a custom CA certificate file can be configured, which enables the use of self-signed certificates or certificates issued by a private root CA.
+
+If no custom CA certificate is configured, the integration continues to use the default certificate verification provided by the Home Assistant/Python environment. This keeps the existing behavior unchanged for HTTP endpoints or HTTPS endpoints using publicly trusted certificates.
+
+
 ## Configuration
 
 The integration requires the following configuration:
