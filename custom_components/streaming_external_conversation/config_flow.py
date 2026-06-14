@@ -9,7 +9,7 @@ import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.data_entry_flow import FlowResult
 
-from .const import CONF_NAME, CONF_TIMEOUT, CONF_TOKEN, CONF_URL, DOMAIN
+from .const import CONF_NAME, CONF_TIMEOUT, CONF_TOKEN, CONF_URL, DOMAIN, CA_CERT_PATH
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -19,6 +19,7 @@ STEP_USER_DATA_SCHEMA = vol.Schema(
         vol.Required(CONF_URL): vol.All(str, vol.Length(min=1)),
         vol.Optional(CONF_TOKEN): str,
         vol.Optional(CONF_TIMEOUT, default=180): vol.All(vol.Coerce(int), vol.Range(min=10, max=600)),
+        vol.Optional(CA_CERT_PATH, default="") : str,
     }
 )
 

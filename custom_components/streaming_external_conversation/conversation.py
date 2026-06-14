@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import json
 import logging
+import ssl
 from typing import Any, AsyncGenerator, Literal
-
+from pathlib import Path
 import aiohttp
 
 from homeassistant.components import conversation
@@ -13,7 +14,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
-from .const import CONF_TIMEOUT, CONF_TOKEN, CONF_URL
+from .const import CONF_TIMEOUT, CONF_TOKEN, CONF_URL, CA_CERT_PATH
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -64,6 +65,10 @@ class ExternalConversationStreamEntity(
     def _timeout(self) -> int:
         return self.entry.data.get(CONF_TIMEOUT, 180)
 
+    @property
+    def _ca_cert_path(self) -> str | None:
+        return self.entry.data.get(CA_CERT_PATH)
+
     async def _async_handle_message(
         self,
         user_input: conversation.ConversationInput,
@@ -89,10 +94,22 @@ class ExternalConversationStreamEntity(
             if self._token:
                 headers["Authorization"] = f"Bearer {self._token}"
 
+            ssl_context = None
+            if self._ca_cert_path:
+                ca_path = Path(self._ca_cert_path)
+
+                if not ca_path.is_file():
+                    raise FileNotFoundError(f"CA certificate file not found: {self._ca_cert_path}")
+
+                ssl_context = ssl.create_default_context(
+                    cafile=str(ca_path)
+                )
+
             async with self._session.post(
                 self._url,
                 json=payload,
                 headers=headers,
+                ssl=ssl_context,
                 timeout=aiohttp.ClientTimeout(total=self._timeout),
             ) as resp:
                 resp.raise_for_status()
